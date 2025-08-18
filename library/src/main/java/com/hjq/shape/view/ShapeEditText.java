@@ -97,7 +97,7 @@ public class ShapeEditText extends AppCompatEditText implements
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if ((oldw != 0 && w < oldw) || (oldh != 0 && h > oldh)) {
+        if ((oldw != 0 && w != oldw) || (oldh != 0 && h != oldh)) {
             mShapeDrawableBuilder.intoBackground();
         }
     }
