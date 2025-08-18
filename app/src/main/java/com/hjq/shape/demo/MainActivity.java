@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         });
         btnTest.setOnClickListener(view -> btnTest.post(() -> {
             btnTest.setPadding(0, 2500, 0, 0);
-            btnTest.getShapeDrawableBuilder().intoBackground();
         }));
     }
 }

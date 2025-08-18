@@ -11,10 +11,10 @@ import com.hjq.shape.config.IGetShapeDrawableBuilder;
 import com.hjq.shape.styleable.ShapeViewStyleable;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/ShapeView
- *    time   : 2021/07/17
- *    desc   : 支持直接定义 Shape 背景的 View
+ * author : Android 轮子哥
+ * github : https://github.com/getActivity/ShapeView
+ * time   : 2021/07/17
+ * desc   : 支持直接定义 Shape 背景的 View
  */
 public class ShapeView extends View implements IGetShapeDrawableBuilder {
 
@@ -56,6 +56,14 @@ public class ShapeView extends View implements IGetShapeDrawableBuilder {
                 mShapeDrawableBuilder.setSolidGradientColors(mShapeDrawableBuilder.getSolidGradientDisableColors());
                 mShapeDrawableBuilder.intoBackground();
             }
+        }
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if ((oldw != 0 && w < oldw) || (oldh != 0 && h > oldh)) {
+            mShapeDrawableBuilder.intoBackground();
         }
     }
 
