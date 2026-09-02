@@ -13,7 +13,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        // AGP 7.0.4 是当前 Android Studio 支持的最低版本，并与 JDK 11 兼容。
+        classpath 'com.android.tools.build:gradle:7.0.4'
     }
 }
 
