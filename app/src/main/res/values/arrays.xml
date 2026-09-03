@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 多停靠点描边渐变颜色（本示例使用 5 个，实际可按需配置任意多个）。 -->
+    <array name="multi_stop_stroke_gradient_colors">
+        <item>#33FFFFFF</item>
+        <item>#0DFFFFFF</item>
+        <item>#00FFFFFF</item>
+        <item>#00FFFFFF</item>
+        <item>#14FFFFFF</item>
+    </array>
+
+    <!-- 多停靠点描边渐变位置，取值范围为 0 到 1。 -->
+    <string-array name="multi_stop_stroke_gradient_positions">
+        <item>0.026</item>
+        <item>0.1875</item>
+        <item>0.5079</item>
+        <item>0.7736</item>
+        <item>0.8702</item>
+    </string-array>
+
+</resources>

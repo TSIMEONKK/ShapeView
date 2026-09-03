@@ -214,6 +214,26 @@ public final class ShapeRadioButtonStyleable implements IShapeDrawableStyleable,
     }
 
     @Override
+    public int getStrokeGradientColorsStyleable() {
+        return R.styleable.ShapeRadioButton_shape_strokeGradientColors;
+    }
+
+    @Override
+    public int getStrokeGradientPositionsStyleable() {
+        return R.styleable.ShapeRadioButton_shape_strokeGradientPositions;
+    }
+
+    @Override
+    public int getStrokeGradientAngleStyleable() {
+        return R.styleable.ShapeRadioButton_shape_strokeGradientAngle;
+    }
+
+    @Override
+    public int getStrokeGradientEnableShadowStyleable() {
+        return R.styleable.ShapeRadioButton_shape_strokeGradientEnableShadow;
+    }
+
+    @Override
     public int getStrokeSizeStyleable() {
         return R.styleable.ShapeRadioButton_shape_strokeSize;
     }

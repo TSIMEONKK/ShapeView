@@ -4,10 +4,10 @@ import com.hjq.shape.R;
 import com.hjq.shape.config.IShapeDrawableStyleable;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/ShapeView
- *    time   : 2021/08/28
- *    desc   : ConstraintLayout 的 Shape 属性值
+ * author : Android 轮子哥
+ * github : https://github.com/getActivity/ShapeView
+ * time   : 2021/08/28
+ * desc   : ConstraintLayout 的 Shape 属性值
  */
 public final class ShapeConstraintLayoutStyleable implements IShapeDrawableStyleable {
 
@@ -198,6 +198,26 @@ public final class ShapeConstraintLayoutStyleable implements IShapeDrawableStyle
     @Override
     public int getStrokeGradientOrientationStyleable() {
         return R.styleable.ShapeConstraintLayout_shape_strokeGradientOrientation;
+    }
+
+    @Override
+    public int getStrokeGradientColorsStyleable() {
+        return R.styleable.ShapeConstraintLayout_shape_strokeGradientColors;
+    }
+
+    @Override
+    public int getStrokeGradientPositionsStyleable() {
+        return R.styleable.ShapeConstraintLayout_shape_strokeGradientPositions;
+    }
+
+    @Override
+    public int getStrokeGradientAngleStyleable() {
+        return R.styleable.ShapeConstraintLayout_shape_strokeGradientAngle;
+    }
+
+    @Override
+    public int getStrokeGradientEnableShadowStyleable() {
+        return R.styleable.ShapeConstraintLayout_shape_strokeGradientEnableShadow;
     }
 
     @Override

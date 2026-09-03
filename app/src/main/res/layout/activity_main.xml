@@ -37,6 +37,172 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- 使用 Figma 画布颜色观察半透明背景和低透明度边框渐变。 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="多停靠点边框渐变（XML）"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- 使用 XML 属性验证多个颜色停靠点和自定义位置。 -->
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tv_multi_stop_stroke_xml"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="多停靠点描边渐变（XML 示例为 5 个）"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:shape_radius="16dp"
+                    app:shape_solidColor="#991C1D22"
+                    app:shape_strokeGradientAngle="45"
+                    app:shape_strokeGradientColors="@array/multi_stop_stroke_gradient_colors"
+                    app:shape_strokeGradientPositions="@array/multi_stop_stroke_gradient_positions"
+                    app:shape_strokeSize="1dp"
+                    app:shape_type="rectangle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="多停靠点边框渐变（Java 动态设置）"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Java 代码会给下面的控件动态设置同一组颜色和位置。 -->
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tv_multi_stop_stroke_java"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="多停靠点描边渐变（Java 示例为 5 个）"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:shape_radius="16dp"
+                    app:shape_solidColor="#991C1D22"
+                    app:shape_strokeSize="1dp"
+                    app:shape_type="rectangle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="shadowSize 占位兼容对比（均为 10dp）"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- 旧逻辑：shadowSize 同时负责内缩占位和阴影绘制。 -->
+                <com.hjq.shape.view.ShapeTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="旧逻辑：shadowSize=10dp（绘制阴影）"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:shape_radius="16dp"
+                    app:shape_shadowColor="#66FFFFFF"
+                    app:shape_shadowSize="10dp"
+                    app:shape_solidColor="#991C1D22"
+                    app:shape_strokeColor="#33FFFFFF"
+                    app:shape_strokeSize="1dp"
+                    app:shape_type="rectangle" />
+
+                <!-- 新逻辑默认不绘制阴影，但会保留相同 shadowSize 的内缩占位。 -->
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tv_multi_stop_shadow_inset_compare"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="新逻辑：shadowSize=10dp（仅保留占位）"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:shape_radius="16dp"
+                    app:shape_shadowColor="#66FFFFFF"
+                    app:shape_shadowSize="10dp"
+                    app:shape_solidColor="#991C1D22"
+                    app:shape_strokeGradientAngle="45"
+                    app:shape_strokeGradientColors="@array/multi_stop_stroke_gradient_colors"
+                    app:shape_strokeGradientPositions="@array/multi_stop_stroke_gradient_positions"
+                    app:shape_strokeSize="1dp"
+                    app:shape_type="rectangle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="超大缓存安全降级测试"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- 点击下方按钮后会扩展到 10000dp，高度足以触发软件图层缓存超限检测。 -->
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tv_multi_stop_stroke_large"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="正常：五停靠点描边 + 阴影\n展开后：应保留圆角、纯色背景和描边"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:shape_radius="16dp"
+                    app:shape_shadowColor="#66000000"
+                    app:shape_shadowSize="10dp"
+                    app:shape_solidColor="#991C1D22"
+                    app:shape_strokeGradientAngle="45"
+                    app:shape_strokeGradientColors="@array/multi_stop_stroke_gradient_colors"
+                    app:shape_strokeGradientEnableShadow="true"
+                    app:shape_strokeGradientPositions="@array/multi_stop_stroke_gradient_positions"
+                    app:shape_strokeSize="1dp"
+                    app:shape_type="rectangle" />
+
+                <com.hjq.shape.view.ShapeButton
+                    android:id="@+id/btn_toggle_large_cache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="展开超大 View，验证描边保留"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:shape_radius="16dp"
+                    app:shape_solidColor="#FF3F51B5"
+                    app:shape_type="rectangle" />
+
+            </LinearLayout>
+
             <com.hjq.shape.view.ShapeButton
                 android:id="@+id/btnTest"
                 android:layout_width="match_parent"

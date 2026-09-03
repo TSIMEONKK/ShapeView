@@ -158,6 +158,14 @@
         <enum name="bottomRightToTopLeft" value="135" />
         <enum name="bottomEndToTopStart" value="1350" />
     </attr>
+    <!-- 多停靠点边框渐变颜色数组。 -->
+    <attr name="shape_strokeGradientColors" format="reference" />
+    <!-- 多停靠点边框渐变位置数组，可引用 array 或 string-array。 -->
+    <attr name="shape_strokeGradientPositions" format="reference" />
+    <!-- 边框渐变角度：0 度从左至右，90 度从上至下。 -->
+    <attr name="shape_strokeGradientAngle" format="float" />
+    <!-- 多停靠点描边是否实际绘制旧阴影，默认只保留阴影占位。 -->
+    <attr name="shape_strokeGradientEnableShadow" format="boolean" />
 
     <!-- 边框大小 -->
     <attr name="shape_strokeSize" format="dimension" />
@@ -281,6 +289,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -353,6 +366,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -427,6 +445,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -509,6 +532,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -589,6 +617,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -661,6 +694,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -719,6 +757,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -777,6 +820,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -835,6 +883,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -893,6 +946,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -951,6 +1009,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -1009,6 +1072,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />
@@ -1067,6 +1135,11 @@
         <attr name="shape_strokeGradientCenterColor" />
         <attr name="shape_strokeGradientEndColor" />
         <attr name="shape_strokeGradientOrientation" />
+        <attr name="shape_strokeGradientColors" />
+        <attr name="shape_strokeGradientPositions" />
+        <attr name="shape_strokeGradientAngle" />
+
+        <attr name="shape_strokeGradientEnableShadow" />
         <attr name="shape_strokeSize" />
         <attr name="shape_strokeDashSize" />
         <attr name="shape_strokeDashGap" />

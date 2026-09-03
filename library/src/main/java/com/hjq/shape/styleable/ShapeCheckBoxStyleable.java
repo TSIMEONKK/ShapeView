@@ -214,6 +214,26 @@ public final class ShapeCheckBoxStyleable implements IShapeDrawableStyleable,
     }
 
     @Override
+    public int getStrokeGradientColorsStyleable() {
+        return R.styleable.ShapeCheckBox_shape_strokeGradientColors;
+    }
+
+    @Override
+    public int getStrokeGradientPositionsStyleable() {
+        return R.styleable.ShapeCheckBox_shape_strokeGradientPositions;
+    }
+
+    @Override
+    public int getStrokeGradientAngleStyleable() {
+        return R.styleable.ShapeCheckBox_shape_strokeGradientAngle;
+    }
+
+    @Override
+    public int getStrokeGradientEnableShadowStyleable() {
+        return R.styleable.ShapeCheckBox_shape_strokeGradientEnableShadow;
+    }
+
+    @Override
     public int getStrokeSizeStyleable() {
         return R.styleable.ShapeCheckBox_shape_strokeSize;
     }

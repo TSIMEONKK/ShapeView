@@ -5,10 +5,10 @@ import com.hjq.shape.config.IShapeDrawableStyleable;
 import com.hjq.shape.config.ITextColorStyleable;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/ShapeView
- *    time   : 2021/08/28
- *    desc   : TextView 的 Shape 属性值
+ * author : Android 轮子哥
+ * github : https://github.com/getActivity/ShapeView
+ * time   : 2021/08/28
+ * desc   : TextView 的 Shape 属性值
  */
 public final class ShapeTextViewStyleable implements IShapeDrawableStyleable, ITextColorStyleable {
 
@@ -199,6 +199,26 @@ public final class ShapeTextViewStyleable implements IShapeDrawableStyleable, IT
     @Override
     public int getStrokeGradientOrientationStyleable() {
         return R.styleable.ShapeTextView_shape_strokeGradientOrientation;
+    }
+
+    @Override
+    public int getStrokeGradientColorsStyleable() {
+        return R.styleable.ShapeTextView_shape_strokeGradientColors;
+    }
+
+    @Override
+    public int getStrokeGradientPositionsStyleable() {
+        return R.styleable.ShapeTextView_shape_strokeGradientPositions;
+    }
+
+    @Override
+    public int getStrokeGradientAngleStyleable() {
+        return R.styleable.ShapeTextView_shape_strokeGradientAngle;
+    }
+
+    @Override
+    public int getStrokeGradientEnableShadowStyleable() {
+        return R.styleable.ShapeTextView_shape_strokeGradientEnableShadow;
     }
 
     @Override

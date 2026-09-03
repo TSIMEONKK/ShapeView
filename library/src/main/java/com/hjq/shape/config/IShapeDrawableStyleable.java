@@ -90,6 +90,26 @@ public interface IShapeDrawableStyleable {
 
     int getStrokeGradientOrientationStyleable();
 
+    /** 多停靠点描边颜色数组资源；返回 -1 表示当前 Styleable 未声明该属性。 */
+    default int getStrokeGradientColorsStyleable() {
+        return -1;
+    }
+
+    /** 多停靠点描边位置数组资源；返回 -1 表示当前 Styleable 未声明该属性。 */
+    default int getStrokeGradientPositionsStyleable() {
+        return -1;
+    }
+
+    /** 描边渐变角度，0 度从左至右，90 度从上至下；返回 -1 表示未声明。 */
+    default int getStrokeGradientAngleStyleable() {
+        return -1;
+    }
+
+    /** 多停靠点描边是否绘制阴影；返回 -1 表示未声明。 */
+    default int getStrokeGradientEnableShadowStyleable() {
+        return -1;
+    }
+
     int getStrokeSizeStyleable();
 
     int getStrokeDashSizeStyleable();

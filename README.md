@@ -48,10 +48,11 @@ android {
 dependencies {
     // ShapeView：https://github.com/getActivity/ShapeView
     implementation 'com.github.getActivity:ShapeView:9.6'
-    // ShapeDrawable：https://github.com/getActivity/ShapeDrawable
-    implementation 'com.github.getActivity:ShapeDrawable:3.3'
 }
+
 ```
+
+ShapeDrawable 已合并到 ShapeView 内部，业务方无需再单独引入 ShapeDrawable 依赖。
 
 #### AndroidX 兼容
 
@@ -247,6 +248,15 @@ shapeButton.setOnClickListener(new View.OnClickListener() {
         <enum name="bottomRightToTopLeft" value="135" />
         <enum name="bottomEndToTopStart" value="1350" />
     </attr>
+
+    <!-- 多停靠点边框渐变颜色数组，引用 array 资源；至少需要 2 个颜色。 -->
+    <attr name="shape_strokeGradientColors" format="reference" />
+    <!-- 多停靠点边框渐变位置数组，引用 string-array 资源；长度需与颜色一致。 -->
+    <attr name="shape_strokeGradientPositions" format="reference" />
+    <!-- 多停靠点边框渐变角度：0 度从左到右，90 度从上到下。 -->
+    <attr name="shape_strokeGradientAngle" format="float" />
+    <!-- 多停靠点模式是否实际绘制 shadowSize 对应的阴影，默认只保留占位。 -->
+    <attr name="shape_strokeGradientEnableShadow" format="boolean" />
 
     <!-- 边框大小 -->
     <attr name="shape_strokeSize" format="dimension" />

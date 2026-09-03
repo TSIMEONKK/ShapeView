@@ -201,6 +201,26 @@ public final class ShapeImageViewStyleable implements IShapeDrawableStyleable {
     }
 
     @Override
+    public int getStrokeGradientColorsStyleable() {
+        return R.styleable.ShapeImageView_shape_strokeGradientColors;
+    }
+
+    @Override
+    public int getStrokeGradientPositionsStyleable() {
+        return R.styleable.ShapeImageView_shape_strokeGradientPositions;
+    }
+
+    @Override
+    public int getStrokeGradientAngleStyleable() {
+        return R.styleable.ShapeImageView_shape_strokeGradientAngle;
+    }
+
+    @Override
+    public int getStrokeGradientEnableShadowStyleable() {
+        return R.styleable.ShapeImageView_shape_strokeGradientEnableShadow;
+    }
+
+    @Override
     public int getStrokeSizeStyleable() {
         return R.styleable.ShapeImageView_shape_strokeSize;
     }
