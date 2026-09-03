@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.hjq.bar.OnTitleBarListener;
-import com.hjq.bar.TitleBar;
 import com.hjq.shape.view.ShapeButton;
 import com.hjq.shape.view.ShapeTextView;
 
@@ -19,14 +18,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TitleBar titleBar = findViewById(R.id.tb_main_bar);
-        titleBar.setOnTitleBarListener(new OnTitleBarListener() {
-            @Override
-            public void onTitleClick(TitleBar titleBar) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(titleBar.getTitle().toString()));
-                startActivity(intent);
-            }
+        TextView titleBar = findViewById(R.id.tb_main_bar);
+        titleBar.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(titleBar.getText().toString()));
+            startActivity(intent);
         });
 
         // 使用 Java 动态 API 验证多个颜色停靠点；本示例数据为 5 个。

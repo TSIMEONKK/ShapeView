@@ -8,12 +8,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.hjq.bar.TitleBar
+    <!-- Demo 使用系统 TextView，避免发布库时依赖额外的 JitPack 标题栏组件。 -->
+    <TextView
         android:id="@+id/tb_main_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:leftIcon="@null"
-        app:title="https://github.com/getActivity/ShapeView" />
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="https://github.com/getActivity/ShapeView"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
