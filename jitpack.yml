@@ -1,0 +1,6 @@
+jdk:
+  - openjdk11
+
+# JitPack 只发布 library；不构建 Demo app，避免其依赖和资源拖慢发布任务。
+install:
+  - ./gradlew clean :library:publishToMavenLocal -x test -x lint --console=plain
