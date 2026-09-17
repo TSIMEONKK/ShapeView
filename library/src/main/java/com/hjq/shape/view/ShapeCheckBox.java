@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.hjq.shape.R;
 import com.hjq.shape.builder.ButtonDrawableBuilder;
@@ -119,7 +120,9 @@ public class ShapeCheckBox extends AppCompatCheckBox implements
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         if ((oldw != 0 && w != oldw) || (oldh != 0 && h != oldh)) {
-            mShapeDrawableBuilder.intoBackground();
+            if (!mShapeDrawableBuilder.isShadowHardware() || getLayerType() == View.LAYER_TYPE_SOFTWARE) {
+                mShapeDrawableBuilder.intoBackground();
+            }
         }
     }
 

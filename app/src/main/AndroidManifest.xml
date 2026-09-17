@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
 
+        <!-- 独立的软件 Canvas 测试页，验证新方案不会自行创建 View 软件层。 -->
+        <activity
+            android:name=".SoftwareCanvasTestActivity"
+            android:hardwareAccelerated="false" />
+
+        <!-- 占位与旧模式回归测试页。 -->
+        <activity android:name=".PlaceholderLegacyTestActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -254,6 +254,16 @@ public final class ShapeCheckBoxStyleable implements IShapeDrawableStyleable,
     }
 
     @Override
+    public int getShadowHardwareStyleable() {
+        return R.styleable.ShapeCheckBox_shape_shadowHardware;
+    }
+
+    @Override
+    public int getShadowInsetSizeStyleable() {
+        return R.styleable.ShapeCheckBox_shape_shadowInsetSize;
+    }
+
+    @Override
     public int getShadowColorStyleable() {
         return R.styleable.ShapeCheckBox_shape_shadowColor;
     }

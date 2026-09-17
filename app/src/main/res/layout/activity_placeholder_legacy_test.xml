@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="占位与旧模式一致性验证"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="前四张卡片高度、margin、padding、radius 相同。观察彩色形状边界：A/B/C/D 应具有相同的 16dp 基础占位。"
+            android:textColor="#FF666666"
+            android:textSize="13sp" />
+
+        <!-- A：旧普通阴影，作为存量普通卡片基线。 -->
+        <com.hjq.shape.view.ShapeTextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="A. 旧普通阴影：shadowSize=16"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:shape_radius="14dp"
+            app:shape_shadowColor="#66FF0000"
+            app:shape_shadowSize="16dp"
+            app:shape_solidColor="#FF5A8DDF"
+            app:shape_strokeColor="#FFFFFFFF"
+            app:shape_strokeSize="2dp" />
+
+        <!-- B：旧多停靠点默认仅占位，验证已上线兼容行为。 -->
+        <com.hjq.shape.view.ShapeTextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="B. 旧多停靠点默认：shadowSize=16，仅占位"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:shape_radius="14dp"
+            app:shape_shadowColor="#66FF0000"
+            app:shape_shadowSize="16dp"
+            app:shape_solidColor="#FF009688"
+            app:shape_strokeGradientAngle="45"
+            app:shape_strokeGradientColors="@array/multi_stop_stroke_gradient_colors"
+            app:shape_strokeGradientPositions="@array/multi_stop_stroke_gradient_positions"
+            app:shape_strokeSize="2dp" />
+
+        <!-- C：新模式完整阴影。 -->
+        <com.hjq.shape.view.ShapeTextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="C. 新模式完整阴影：shadow=16 / inset=16"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:shape_radius="14dp"
+            app:shape_shadowColor="#66FF0000"
+            app:shape_shadowHardware="true"
+            app:shape_shadowInsetSize="16dp"
+            app:shape_shadowSize="16dp"
+            app:shape_solidColor="#FF9C27B0"
+            app:shape_strokeColor="#FFFFFFFF"
+            app:shape_strokeSize="2dp" />
+
+        <!-- D：新模式纯占位。 -->
+        <com.hjq.shape.view.ShapeTextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="D. 新模式纯占位：shadow=0 / inset=16"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:shape_radius="14dp"
+            app:shape_shadowHardware="true"
+            app:shape_shadowInsetSize="16dp"
+            app:shape_solidColor="#FFFF7043"
+            app:shape_strokeColor="#FFFFFFFF"
+            app:shape_strokeSize="2dp" />
+
+        <com.hjq.shape.view.ShapeTextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="E. 新模式更大占位：shadow=16 / inset=28（边界应明显更小）"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:shape_radius="14dp"
+            app:shape_shadowColor="#66FF0000"
+            app:shape_shadowHardware="true"
+            app:shape_shadowInsetSize="28dp"
+            app:shape_shadowSize="16dp"
+            app:shape_solidColor="#FF795548"
+            app:shape_strokeColor="#FFFFFFFF"
+            app:shape_strokeSize="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="旧模式回归与动态 API"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.hjq.shape.view.ShapeTextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="旧模式：阴影 + 虚线（应使用 SOFTWARE 图层）"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:shape_radius="14dp"
+            app:shape_shadowColor="#66FF0000"
+            app:shape_shadowSize="16dp"
+            app:shape_solidColor="#FF3F51B5"
+            app:shape_strokeColor="#FFFFFFFF"
+            app:shape_strokeDashGap="6dp"
+            app:shape_strokeDashSize="12dp"
+            app:shape_strokeSize="2dp" />
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/tv_direct_drawable_switch"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <com.hjq.shape.view.ShapeButton
+            android:id="@+id/btn_toggle_direct_drawable_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="6dp"
+            android:text="切换直接 Drawable 新模式"
+            app:shape_radius="8dp"
+            app:shape_solidColor="#FF795548" />
+
+        <TextView
+            android:id="@+id/tv_direct_drawable_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="直接 Drawable 初始为旧模式。"
+            android:textColor="#FF666666"
+            android:textSize="12sp" />
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/tv_legacy_large_card"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="旧模式卡片（120dp）：点击按钮扩展，验证原有安全降级"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:shape_radius="14dp"
+            app:shape_shadowColor="#66FF0000"
+            app:shape_shadowSize="16dp"
+            app:shape_solidColor="#FF3F51B5"
+            app:shape_strokeColor="#FFFFFFFF"
+            app:shape_strokeDashGap="6dp"
+            app:shape_strokeDashSize="12dp"
+            app:shape_strokeSize="2dp" />
+
+        <com.hjq.shape.view.ShapeButton
+            android:id="@+id/btn_toggle_legacy_large_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="6dp"
+            android:text="扩展旧模式卡片到 10000dp"
+            app:shape_radius="8dp"
+            app:shape_solidColor="#FF3F51B5" />
+
+        <TextView
+            android:id="@+id/tv_legacy_large_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="#FF666666"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -176,6 +176,10 @@
 
     <!-- 阴影大小 -->
     <attr name="shape_shadowSize" format="dimension" />
+    <!-- 是否按最终 Canvas 能力绘制阴影，开启后不由库主动创建软件图层。 -->
+    <attr name="shape_shadowHardware" format="boolean" />
+    <!-- 仅保留阴影留白，不触发阴影绘制。 -->
+    <attr name="shape_shadowInsetSize" format="dimension" />
     <!-- 阴影颜色 -->
     <attr name="shape_shadowColor" format="color" />
     <!-- 阴影水平偏移 -->
@@ -299,6 +303,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -376,6 +382,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -455,6 +463,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -542,6 +552,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -627,6 +639,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -704,6 +718,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -767,6 +783,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -830,6 +848,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -893,6 +913,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -956,6 +978,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -1019,6 +1043,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -1082,6 +1108,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />
@@ -1145,6 +1173,8 @@
         <attr name="shape_strokeDashGap" />
 
         <attr name="shape_shadowSize" />
+        <attr name="shape_shadowHardware" />
+        <attr name="shape_shadowInsetSize" />
         <attr name="shape_shadowColor" />
         <attr name="shape_shadowOffsetX" />
         <attr name="shape_shadowOffsetY" />

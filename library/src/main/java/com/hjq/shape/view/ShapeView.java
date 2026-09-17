@@ -63,7 +63,9 @@ public class ShapeView extends View implements IGetShapeDrawableBuilder {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         if ((oldw != 0 && w != oldw) || (oldh != 0 && h != oldh)) {
-            mShapeDrawableBuilder.intoBackground();
+            if (!mShapeDrawableBuilder.isShadowHardware() || getLayerType() == View.LAYER_TYPE_SOFTWARE) {
+                mShapeDrawableBuilder.intoBackground();
+            }
         }
     }
 

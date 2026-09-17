@@ -30,6 +30,9 @@ import android.view.View;
  */
 public class ShapeDrawable extends Drawable {
 
+    /** 调试开关：在硬件 Canvas 上模拟 API < 28 的能力边界。 */
+    private static volatile boolean sForceBelowApi28ForDebug;
+
     private ShapeState mShapeState;
 
     private final Paint mSolidPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -73,6 +76,56 @@ public class ShapeDrawable extends Drawable {
      */
     public ShapeState getShapeState() {
         return mShapeState;
+    }
+
+    /** 设置是否强制按 API < 28 的硬件能力处理，仅用于调试。 */
+    public static void setForceBelowApi28ForDebug(boolean enabled) {
+        sForceBelowApi28ForDebug = enabled;
+    }
+
+    public static boolean isForceBelowApi28ForDebug() {
+        return sForceBelowApi28ForDebug;
+    }
+
+    /** 是否按 API < 28 的硬件能力处理。 */
+    private static boolean isBelowApi28() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.P || sForceBelowApi28ForDebug;
+    }
+
+    /**
+     * 硬件阴影模糊半径（混合映射）：无偏移时直传全量，所见即所得（4dp = 4dp 模糊）；
+     * 有偏移时沿用旧 BlurMaskFilter 的 API 分档（28+ 取 1/2、< 28 取 1/3），保留边界安全余量。
+     * draw() 挂载和 saveCanvasLayer() 扩张必须同源消费该方法，避免离屏 layer 裁切实际阴影。
+     * ensureValidRect() 则使用 resolveShadowLayoutRadius()，保证 API 降级前后四侧留白稳定。
+     */
+    private float resolveShadowBlurRadius() {
+        if (!mShapeState.shadowHardware) {
+            // 旧模式保持既有映射（legacy 的 BlurMaskFilter 路径实际不消费此方法）
+            return mShapeState.shadowSize / 2f;
+        }
+        // 无偏移：直传全量，所见即所得
+        if (mShapeState.shadowOffsetX == 0 && mShapeState.shadowOffsetY == 0) {
+            return mShapeState.shadowSize;
+        }
+        // 有偏移：完整继承旧逻辑分档；isBelowApi28() 含调试开关，便于在 28+ 测试机模拟低版本档位
+        return isBelowApi28() ? mShapeState.shadowSize / 3f : mShapeState.shadowSize / 2f;
+    }
+
+    /**
+     * 计算阴影占位所需的半径。
+     *
+     * 几何不能跟随 API 或调试开关切换，否则低版本仅降级阴影时会改变卡片内容区域。
+     * 因此有偏移场景固定按新模式可达路径中的较大半径 S/2 预留；软件 Canvas 的 S/3
+     * 绘制半径可安全落在这份留白中，硬件 Canvas API < 28 虽不画阴影也保持相同几何。
+     */
+    private float resolveShadowLayoutRadius() {
+        if (!mShapeState.shadowHardware) {
+            return mShapeState.shadowSize / 2f;
+        }
+        if (mShapeState.shadowOffsetX == 0 && mShapeState.shadowOffsetY == 0) {
+            return mShapeState.shadowSize;
+        }
+        return mShapeState.shadowSize / 2f;
     }
 
     @Override
@@ -387,6 +440,18 @@ public class ShapeDrawable extends Drawable {
         return this;
     }
 
+    /** 设置是否按当前 Canvas 能力绘制阴影。 */
+    public ShapeDrawable setShadowHardware(boolean hardware) {
+        if (mShapeState.shadowHardware != hardware) {
+            mShapeState.shadowHardware = hardware;
+            // 新模式的四侧阴影留白依赖该开关，直接使用 Drawable 时也必须重算几何。
+            mPathDirty = true;
+            mRectDirty = true;
+            invalidateSelf();
+        }
+        return this;
+    }
+
     /**
      * 设置阴影占位大小。该值只缩小形状绘制区域，不绘制阴影，也不会要求软件图层。
      */
@@ -478,7 +543,12 @@ public class ShapeDrawable extends Drawable {
      * 将当前 Drawable 对象应用到 View 背景
      */
     public void intoBackground(View view) {
-        if (mShapeState.strokeDashGap > 0 || mShapeState.shadowSize > 0) {
+        if (mShapeState.shadowHardware) {
+            // 新开关只解除软件层，保留宿主为属性动画等场景创建的硬件层。
+            if (view.getLayerType() == View.LAYER_TYPE_SOFTWARE) {
+                view.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+        } else if (mShapeState.strokeDashGap > 0 || mShapeState.shadowSize > 0) {
             // 需要关闭硬件加速，否则虚线或者阴影在某些手机上面无法生效
             view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
@@ -512,12 +582,18 @@ public class ShapeDrawable extends Drawable {
         final boolean haveStroke = currStrokeAlpha > 0 && mStrokePaint.getStrokeWidth() > 0;
         final boolean haveFill = currFillAlpha > 0;
         final ShapeState st = mShapeState;
+        // API < 28 的硬件 Canvas 不支持非文本阴影和线条 PathEffect；软件 Canvas 可正常绘制。
+        final boolean hardwareBelow28 = st.shadowHardware && canvas.isHardwareAccelerated() && isBelowApi28();
+        final boolean drawLegacyShadow = haveShadow && !st.shadowHardware;
+        final boolean drawShadowLayer = haveShadow && st.shadowHardware && !hardwareBelow28;
+        // DashPathEffect 仅在虚线段长度大于 0 时创建；gap 单独配置不能把实线误判为虚线。
+        final boolean skipDashedStroke = hardwareBelow28 && st.strokeDashSize > 0;
         /*  we need a layer iff we're drawing both a fill and stroke, and the
             stroke is non-opaque, and our shape type actually supports
             fill+stroke. Otherwise we can just draw the stroke (if any) on top
             of the fill (if any) without worrying about blending artifacts.
          */
-         final boolean useLayer = haveStroke && haveFill && st.shapeType != ShapeType.LINE &&
+        final boolean useLayer = !skipDashedStroke && haveStroke && haveFill && st.shapeType != ShapeType.LINE &&
                  currStrokeAlpha < 255 && (mAlpha < 255 || mColorFilter != null);
 
         /*  Drawing with a layer is slower than direct drawing, but it
@@ -537,6 +613,12 @@ public class ShapeDrawable extends Drawable {
             mLayerPaint.setColorFilter(mColorFilter);
 
             float rad = mStrokePaint.getStrokeWidth();
+            if (drawShadowLayer) {
+                // 离屏 layer 必须包含阴影模糊半径和偏移，避免内部裁切；半径与挂载处同源。
+                rad += resolveShadowBlurRadius() +
+                        Math.max(Math.abs(mShapeState.shadowOffsetX),
+                                Math.abs(mShapeState.shadowOffsetY));
+            }
             ShapeDrawableUtils.saveCanvasLayer(canvas, mRect.left - rad, mRect.top - rad,
                     mRect.right + rad, mRect.bottom + rad, mLayerPaint);
 
@@ -561,7 +643,20 @@ public class ShapeDrawable extends Drawable {
             }
         }
 
-        if (haveShadow) {
+        // ShadowLayer 会跨帧保留，先清理两个复用画笔，避免状态切换后出现双重阴影。
+        mSolidPaint.clearShadowLayer();
+        mStrokePaint.clearShadowLayer();
+
+        if (drawShadowLayer) {
+            // 混合映射：无偏移直传全量；有偏移按旧方案 API 分档（规则见 resolveShadowBlurRadius）
+            float radius = resolveShadowBlurRadius();
+            Paint shadowSource = st.shapeType == ShapeType.LINE ? mStrokePaint :
+                    (haveFill ? mSolidPaint : (haveStroke ? mStrokePaint : null));
+            if (shadowSource != null) {
+                shadowSource.setShadowLayer(radius, mShapeState.shadowOffsetX,
+                        mShapeState.shadowOffsetY, mShapeState.shadowColor);
+            }
+        } else if (drawLegacyShadow) {
             if (mShadowPaint == null) {
                 mShadowPaint = new Paint();
                 mShadowPaint.setColor(Color.TRANSPARENT);
@@ -591,10 +686,6 @@ public class ShapeDrawable extends Drawable {
              }
              mShadowPaint.setMaskFilter(new BlurMaskFilter(shadowRadius, BlurMaskFilter.Blur.NORMAL));
 
-        } else {
-            if (mShadowPaint != null) {
-                mShadowPaint.clearShadowLayer();
-            }
         }
 
         switch (st.shapeType) {
@@ -605,13 +696,13 @@ public class ShapeDrawable extends Drawable {
                         mPath.addRoundRect(mRect, st.radiusArray, Path.Direction.CW);
                         mPathDirty = mRectDirty = false;
                     }
-                    if (haveShadow) {
+                    if (drawLegacyShadow) {
                         mShadowPath.reset();
                         mShadowPath.addRoundRect(mShadowRect, st.radiusArray, Path.Direction.CW);
                         canvas.drawPath(mShadowPath, mShadowPaint);
                     }
                     canvas.drawPath(mPath, mSolidPaint);
-                    if (haveStroke) {
+                    if (haveStroke && !skipDashedStroke) {
                         canvas.drawPath(mPath, mStrokePaint);
                     }
                 } else if (st.radius > 0.0f) {
@@ -625,32 +716,32 @@ public class ShapeDrawable extends Drawable {
                     if (rad > r) {
                         rad = r;
                     }
-                    if (haveShadow) {
+                    if (drawLegacyShadow) {
                         canvas.drawRoundRect(mShadowRect, rad, rad, mShadowPaint);
                     }
                     canvas.drawRoundRect(mRect, rad, rad, mSolidPaint);
-                    if (haveStroke) {
+                    if (haveStroke && !skipDashedStroke) {
                         canvas.drawRoundRect(mRect, rad, rad, mStrokePaint);
                     }
                 } else {
-                    if (haveShadow) {
+                    if (drawLegacyShadow) {
                         canvas.drawRect(mShadowRect, mShadowPaint);
                     }
                     if (mSolidPaint.getColor() != 0 || mColorFilter != null ||
                             mSolidPaint.getShader() != null) {
                         canvas.drawRect(mRect, mSolidPaint);
                     }
-                    if (haveStroke) {
+                    if (haveStroke && !skipDashedStroke) {
                         canvas.drawRect(mRect, mStrokePaint);
                     }
                 }
                 break;
             case ShapeType.OVAL:
-                if (haveShadow) {
+                if (drawLegacyShadow) {
                     canvas.drawOval(mShadowRect, mShadowPaint);
                 }
                 canvas.drawOval(mRect, mSolidPaint);
-                if (haveStroke) {
+                if (haveStroke && !skipDashedStroke) {
                     canvas.drawOval(mRect, mStrokePaint);
                 }
                 break;
@@ -704,19 +795,21 @@ public class ShapeDrawable extends Drawable {
                         break;
                 }
 
-                if (haveShadow) {
+                if (drawLegacyShadow) {
                     canvas.drawLine(startX, startY, stopX, stopY, mShadowPaint);
                 }
-                canvas.drawLine(startX, startY, stopX, stopY, mStrokePaint);
+                if (!skipDashedStroke) {
+                    canvas.drawLine(startX, startY, stopX, stopY, mStrokePaint);
+                }
                 break;
             }
             case ShapeType.RING:
                 Path path = buildRing(st);
-                if (haveShadow) {
+                if (drawLegacyShadow) {
                     canvas.drawPath(path, mShadowPaint);
                 }
                 canvas.drawPath(path, mSolidPaint);
-                if (haveStroke) {
+                if (haveStroke && !skipDashedStroke) {
                     canvas.drawPath(path, mStrokePaint);
                 }
                 break;
@@ -875,12 +968,26 @@ public class ShapeDrawable extends Drawable {
 
         // 正常阴影和仅占位阴影都需要预留同一块绘制空间，避免卡片尺寸发生变化。
         int shadowInsetSize = Math.max(mShapeState.shadowSize, mShapeState.shadowInsetSize);
-        float let = bounds.left + inset + shadowInsetSize;
-        float top = bounds.top + inset + shadowInsetSize;
-        float right = bounds.right - inset - shadowInsetSize;
-        float bottom = bounds.bottom - inset - shadowInsetSize;
+        float leftShadowInset = shadowInsetSize;
+        float topShadowInset = shadowInsetSize;
+        float rightShadowInset = shadowInsetSize;
+        float bottomShadowInset = shadowInsetSize;
+        if (mShapeState.shadowHardware && mShapeState.shadowSize > 0) {
+            // ShadowLayer 的偏移由系统直接施加到阴影上。只有偏移超过原留白时，
+            // 才按四边分别补足空间，避免阴影被 Drawable/View 边界裁剪。
+            // 几何使用跨 API 稳定的占位半径，避免低版本仅降级阴影时内容区域发生变化。
+            float radius = resolveShadowLayoutRadius();
+            leftShadowInset = Math.max(leftShadowInset, (float) Math.ceil(radius - mShapeState.shadowOffsetX));
+            topShadowInset = Math.max(topShadowInset, (float) Math.ceil(radius - mShapeState.shadowOffsetY));
+            rightShadowInset = Math.max(rightShadowInset, (float) Math.ceil(radius + mShapeState.shadowOffsetX));
+            bottomShadowInset = Math.max(bottomShadowInset, (float) Math.ceil(radius + mShapeState.shadowOffsetY));
+        }
+        float left = bounds.left + inset + leftShadowInset;
+        float top = bounds.top + inset + topShadowInset;
+        float right = bounds.right - inset - rightShadowInset;
+        float bottom = bounds.bottom - inset - bottomShadowInset;
 
-        mRect.set(let, top, right, bottom);
+        mRect.set(left, top, right, bottom);
 
         float shadowLet;
         float shadowTop;
@@ -888,10 +995,10 @@ public class ShapeDrawable extends Drawable {
         float shadowBottom;
 
         if (mShapeState.shadowOffsetX > 0) {
-            shadowLet = let + mShapeState.shadowOffsetX;
+            shadowLet = left + mShapeState.shadowOffsetX;
             shadowRight = right;
         } else {
-            shadowLet = let;
+            shadowLet = left;
             shadowRight = right + mShapeState.shadowOffsetX;
         }
 

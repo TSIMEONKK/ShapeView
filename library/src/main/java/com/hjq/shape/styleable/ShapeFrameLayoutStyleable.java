@@ -241,6 +241,16 @@ public final class ShapeFrameLayoutStyleable implements IShapeDrawableStyleable 
     }
 
     @Override
+    public int getShadowHardwareStyleable() {
+        return R.styleable.ShapeFrameLayout_shape_shadowHardware;
+    }
+
+    @Override
+    public int getShadowInsetSizeStyleable() {
+        return R.styleable.ShapeFrameLayout_shape_shadowInsetSize;
+    }
+
+    @Override
     public int getShadowColorStyleable() {
         return R.styleable.ShapeFrameLayout_shape_shadowColor;
     }

@@ -241,6 +241,16 @@ public final class ShapeRadioGroupStyleable implements IShapeDrawableStyleable {
     }
 
     @Override
+    public int getShadowHardwareStyleable() {
+        return R.styleable.ShapeRadioGroup_shape_shadowHardware;
+    }
+
+    @Override
+    public int getShadowInsetSizeStyleable() {
+        return R.styleable.ShapeRadioGroup_shape_shadowInsetSize;
+    }
+
+    @Override
     public int getShadowColorStyleable() {
         return R.styleable.ShapeRadioGroup_shape_shadowColor;
     }

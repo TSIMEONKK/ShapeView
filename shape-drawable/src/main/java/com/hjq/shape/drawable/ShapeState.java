@@ -53,6 +53,8 @@ public class ShapeState extends Drawable.ConstantState {
     public boolean opaque;
 
     public int shadowSize;
+    /** 是否启用按 Canvas 能力绘制的阴影方案。 */
+    public boolean shadowHardware;
     /** 仅用于保留阴影留白，不触发阴影绘制。 */
     public int shadowInsetSize;
     public int shadowColor;
@@ -110,6 +112,7 @@ public class ShapeState extends Drawable.ConstantState {
         opaque = state.opaque;
 
         shadowSize = state.shadowSize;
+        shadowHardware = state.shadowHardware;
         shadowInsetSize = state.shadowInsetSize;
         shadowColor = state.shadowColor;
         shadowOffsetX = state.shadowOffsetX;

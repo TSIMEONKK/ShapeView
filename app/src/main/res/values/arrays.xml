@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 多停靠点描边渐变颜色（本示例使用 5 个，实际可按需配置任意多个）。 -->
+    <!--
+        多停靠点描边渐变颜色：使用高对比彩色停靠点，避免与示例卡片底色重复，
+        便于直接观察每个位置的渐变过渡。
+    -->
     <array name="multi_stop_stroke_gradient_colors">
-        <item>#33FFFFFF</item>
-        <item>#0DFFFFFF</item>
-        <item>#00FFFFFF</item>
-        <item>#00FFFFFF</item>
-        <item>#14FFFFFF</item>
+        <item>#FF00E5FF</item>
+        <item>#FF2979FF</item>
+        <item>#FFD500F9</item>
+        <item>#FFFF6D00</item>
+        <item>#FFFFD600</item>
     </array>
 
     <!-- 多停靠点描边渐变位置，取值范围为 0 到 1。 -->

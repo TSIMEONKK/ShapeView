@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.hjq.shape.R;
 import com.hjq.shape.builder.ShapeDrawableBuilder;
@@ -97,7 +98,9 @@ public class ShapeButton extends AppCompatButton implements
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         if ((oldw != 0 && w != oldw) || (oldh != 0 && h != oldh)) {
-            mShapeDrawableBuilder.intoBackground();
+            if (!mShapeDrawableBuilder.isShadowHardware() || getLayerType() == View.LAYER_TYPE_SOFTWARE) {
+                mShapeDrawableBuilder.intoBackground();
+            }
         }
     }
 }

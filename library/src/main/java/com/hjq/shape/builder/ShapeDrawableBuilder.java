@@ -33,6 +33,15 @@ public final class ShapeDrawableBuilder {
 
     private static final int NO_COLOR = Color.TRANSPARENT;
 
+    /** 设置是否强制按 API < 28 的硬件能力处理，仅用于调试。 */
+    public static void setForceBelowApi28ForDebug(boolean enabled) {
+        ShapeDrawable.setForceBelowApi28ForDebug(enabled);
+    }
+
+    public static boolean isForceBelowApi28ForDebug() {
+        return ShapeDrawable.isForceBelowApi28ForDebug();
+    }
+
     private final View mView;
 
     @ShapeTypeLimit
@@ -92,9 +101,16 @@ public final class ShapeDrawableBuilder {
     private int mStrokeDashGap;
 
     private int mShadowSize;
+    /** 是否启用按最终 Canvas 能力绘制的阴影方案。 */
+    private boolean mShadowHardware;
+    /** 仅用于保留阴影留白，不触发阴影绘制。 */
+    private int mShadowInsetSize;
     private int mShadowColor;
     private int mShadowOffsetX;
     private int mShadowOffsetY;
+
+    /** 背景重建请求版本，用于丢弃过期的软件缓存检查回调。 */
+    private int mBackgroundRequestVersion;
 
     private int mRingInnerRadiusSize;
     private float mRingInnerRadiusRatio;
@@ -267,6 +283,12 @@ public final class ShapeDrawableBuilder {
         mStrokeDashGap = typedArray.getDimensionPixelSize(styleable.getStrokeDashGapStyleable(), 0);
 
         mShadowSize = typedArray.getDimensionPixelSize(styleable.getShadowSizeStyleable(), 0);
+        int shadowHardwareStyleable = styleable.getShadowHardwareStyleable();
+        mShadowHardware = shadowHardwareStyleable >= 0 &&
+                typedArray.getBoolean(shadowHardwareStyleable, false);
+        int shadowInsetSizeStyleable = styleable.getShadowInsetSizeStyleable();
+        mShadowInsetSize = shadowInsetSizeStyleable >= 0 ?
+                typedArray.getDimensionPixelSize(shadowInsetSizeStyleable, 0) : 0;
         mShadowColor = typedArray.getColor(styleable.getShadowColorStyleable(), 0x10000000);
         mShadowOffsetX = typedArray.getDimensionPixelOffset(styleable.getShadowOffsetXStyleable(), 0);
         mShadowOffsetY = typedArray.getDimensionPixelOffset(styleable.getShadowOffsetYStyleable(), 0);
@@ -741,6 +763,26 @@ public final class ShapeDrawableBuilder {
         return mShadowSize > 0;
     }
 
+    /** 设置是否启用按 Canvas 能力绘制的阴影方案。 */
+    public ShapeDrawableBuilder setShadowHardware(boolean hardware) {
+        mShadowHardware = hardware;
+        return this;
+    }
+
+    public boolean isShadowHardware() {
+        return mShadowHardware;
+    }
+
+    /** 设置仅用于形状内缩的阴影占位大小。 */
+    public ShapeDrawableBuilder setShadowInsetSize(int size) {
+        mShadowInsetSize = Math.max(0, size);
+        return this;
+    }
+
+    public int getShadowInsetSize() {
+        return mShadowInsetSize;
+    }
+
     /** 多停靠点默认不画阴影；仅显式开启后才进入软件图层绘制。 */
     private boolean isShadowRenderEnable() {
         return isShadowEnable() && (!isMultiStopStrokeGradientEnable() ||
@@ -969,9 +1011,14 @@ public final class ShapeDrawableBuilder {
                 .setStrokeDashGap(mStrokeDashGap);
 
         boolean multiStopStrokeGradientEnable = isMultiStopStrokeGradientEnable();
-        // 多停靠点默认保留旧阴影留白，但不绘制阴影，从而兼容存量卡片的视觉尺寸。
-        drawable.setShadowSize(isShadowRenderEnable() ? mShadowSize : 0)
-                .setShadowInsetSize(multiStopStrokeGradientEnable ? mShadowSize : 0)
+        // 旧模式保留原有多停靠点兼容语义；新开关才直接透传原始阴影参数。
+        int drawableShadowSize = mShadowHardware ? mShadowSize :
+                (isShadowRenderEnable() ? mShadowSize : 0);
+        int drawableShadowInsetSize = mShadowHardware ? mShadowInsetSize :
+                (multiStopStrokeGradientEnable ? mShadowSize : 0);
+        drawable.setShadowHardware(mShadowHardware)
+                .setShadowSize(drawableShadowSize)
+                .setShadowInsetSize(drawableShadowInsetSize)
                 .setShadowColor(mShadowColor)
                 .setShadowOffsetX(mShadowOffsetX)
                 .setShadowOffsetY(mShadowOffsetY);
@@ -1208,13 +1255,19 @@ public final class ShapeDrawableBuilder {
         //老的背景,用于当子view超过屏幕的时候,容错,不使用渐变,使用
         // 获取到的 Drawable 有可能为空
         Drawable drawable = buildBackgroundDrawable();
+        // 每次重建背景都使此前 post 的旧模式缓存检查失效，防止其覆盖新模式图层。
+        final int requestVersion = ++mBackgroundRequestVersion;
         //-1不设置软解、0设置软解、1使用view的background属性
         AtomicInteger atomicState = new AtomicInteger(-1);
-        if (isStrokeDashLineEnable() || isShadowRenderEnable() || isSolidGradientColorsEnable()) {
+        if (!mShadowHardware && (isStrokeDashLineEnable() || isShadowRenderEnable() || isSolidGradientColorsEnable())) {
             // 需要关闭硬件加速，否则虚线或者阴影在某些手机上面无法生效，关闭硬件加速当View的内容大小超过屏幕,不会绘制内容,此时舍去阴影是比较好的方案
             // https://developer.android.com/guide/topics/graphics/hardware-accel?hl=zh-cn
             //当View的缓存计算小于最大值才使用软解
             mView.post(() -> {
+                // Builder 已重建背景或已切换新模式时，旧回调不得再设置软件图层或旧 Drawable。
+                if (requestVersion != mBackgroundRequestVersion || mShadowHardware) {
+                    return;
+                }
                 if (!isOverLargeCache()) {
                     atomicState.set(0);
                 } else {
@@ -1233,8 +1286,13 @@ public final class ShapeDrawableBuilder {
         if (lastShowState == 0) {
             //关闭硬件加速
             mView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        } else if (mShadowHardware) {
+            // 新开关只解除 XML 或外部设置的软件层，不覆盖宿主主动创建的硬件层。
+            if (mView.getLayerType() == View.LAYER_TYPE_SOFTWARE) {
+                mView.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
         } else {
-            //使用之前的layerType
+            // 旧模式恢复构造时读取的图层类型。
             mView.setLayerType(layerType, null);
         }
         // 软件图层缓存超限时，保留可稳定绘制的圆角、纯色背景和多停靠点描边，舍弃阴影、虚线及填充渐变。

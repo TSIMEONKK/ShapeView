@@ -20,6 +20,7 @@
         android:textSize="18sp" />
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,7 +29,166 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical"
+            app:shape_shadowHardware="true"
             app:shape_shadowSize="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="测试入口菜单"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- 一级入口使用整行卡片，避免与页面内的操作按钮混淆。 -->
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:id="@+id/btn_menu_open_shadow_strategy"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:shape_radius="12dp"
+                app:shape_solidColor="#EEF3FB"
+                app:shape_strokeColor="#FF5A8DDF"
+                app:shape_strokeSize="1dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="硬件阴影策略验证"
+                        android:textColor="#FF1F3A5F"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="API 降级、占位、超大卡片、嵌套 RecyclerView"
+                        android:textColor="#FF607D8B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="#FF5A8DDF"
+                    android:textSize="32sp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:id="@+id/btn_menu_open_placeholder_legacy"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:shape_radius="12dp"
+                app:shape_solidColor="#EAF8F6"
+                app:shape_strokeColor="#FF009688"
+                app:shape_strokeSize="1dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="占位与旧模式回归"
+                        android:textColor="#FF00695C"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="旧新模式对照、超限安全降级、直接 Drawable"
+                        android:textColor="#FF4D7770"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="#FF009688"
+                    android:textSize="32sp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:id="@+id/btn_menu_open_software_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:shape_radius="12dp"
+                app:shape_solidColor="#F8EEF9"
+                app:shape_strokeColor="#FF9C27B0"
+                app:shape_strokeSize="1dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="软件 Canvas 验证"
+                        android:textColor="#FF7B1FA2"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="软件 Window 下阴影、虚线及大卡片显示"
+                        android:textColor="#FF7B6680"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="#FF9C27B0"
+                    android:textSize="32sp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,7 +230,7 @@
                     android:layout_margin="10dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="多停靠点描边渐变（XML 示例为 5 个）"
+                    android:text="多停靠点彩色描边渐变（XML，5 个）"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
                     app:shape_radius="16dp"
@@ -100,7 +260,7 @@
                     android:layout_margin="10dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="多停靠点描边渐变（Java 示例为 5 个）"
+                    android:text="多停靠点彩色描边渐变（Java，5 个）"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
                     app:shape_radius="16dp"
@@ -1147,6 +1307,373 @@
                 app:shape_strokeColor="#ffff00ff"
                 app:shape_strokeSize="3dp"
                 app:shape_type="line" />
+
+            <!-- 新硬件阴影方案：库会仅解除 SOFTWARE 图层，保留宿主的 HARDWARE 图层。 -->
+            <com.hjq.shape.view.ShapeTextView
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:layerType="software"
+                android:text="硬件阴影 + 虚线（API 28+）"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="12dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowInsetSize="14dp"
+                app:shape_shadowOffsetY="4dp"
+                app:shape_shadowSize="14dp"
+                app:shape_solidColor="@android:color/white"
+                app:shape_strokeColor="#FF5A8DDF"
+                app:shape_strokeDashGap="5dp"
+                app:shape_strokeDashSize="10dp"
+                app:shape_strokeSize="2dp" />
+
+            <TextView
+                android:id="@+id/tv_shadow_hardware_test_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="硬件阴影策略对比（占位 / API 降级）"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switch_force_below_api_28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="强制模拟 API &lt; 28 的硬件 Canvas" />
+
+            <TextView
+                android:id="@+id/tv_shadow_capability_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="正常模式：API 28+ 硬件 Canvas 显示阴影和虚线；真实低版本设备仍会自动降级。"
+                android:textColor="#FF666666"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_shadow_layer_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:textColor="#FF666666"
+                android:textSize="12sp" />
+
+            <!-- 相同尺寸、相同 padding 的前两张卡用于直接比较“完整阴影”与“仅占位”。 -->
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_full_effect"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="A. 阴影可见性对照：#66FF0000 / shadow=4"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowSize="4dp"
+                app:shape_solidColor="@android:color/white" />
+
+            <!-- A1 与 A 保持相同参数，只关闭新开关以对照旧 BlurMaskFilter 路径。 -->
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_legacy_compare"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="A1. 旧模式对照：shadow=4（无偏移、无描边）"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowSize="4dp"
+                app:shape_solidColor="@android:color/white" />
+
+            <!-- H1/H2 对照混合映射：相同 shadowSize=8，无偏移直传全量、有偏移按 API 分档减半。 -->
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_radius_direct"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="H1. 无偏移直传：shadow=8（模糊半径即 8dp，所见即所得）"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowSize="8dp"
+                app:shape_solidColor="@android:color/white" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_radius_divided"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="H2. 有偏移分档：shadow=8 / offsetY=4（半径 8/2=4dp，占位不变）"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowOffsetY="4dp"
+                app:shape_shadowSize="8dp"
+                app:shape_solidColor="@android:color/white" />
+
+            <!-- 仅用于观察 8dp 的纯布局间距，不配置任何阴影相关属性。 -->
+            <com.hjq.shape.view.ShapeTextView
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="间距标尺（上）：无阴影"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="8dp"
+                app:shape_solidColor="#FFD0D0D0" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="间距标尺（下）：与上方控件纯布局距离为 8dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="8dp"
+                app:shape_solidColor="#FFD0D0D0" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_inset_only"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="B. 仅占位：shadow=0 / inset=16（应与 A 内容区域等大）"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowHardware="true"
+                app:shape_shadowInsetSize="16dp"
+                app:shape_solidColor="@android:color/white"
+                app:shape_strokeColor="#FF5A8DDF"
+                app:shape_strokeSize="2dp" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_large_inset"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="C. 更大占位：shadow=16 / inset=28（内容区域应更小）"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowInsetSize="28dp"
+                app:shape_shadowOffsetY="4dp"
+                app:shape_shadowSize="16dp"
+                app:shape_solidColor="@android:color/white"
+                app:shape_strokeColor="#FF5A8DDF"
+                app:shape_strokeSize="2dp" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_large_offset"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="D. 大偏移：shadow=16 / offsetY=24（底部留白应自动补足）"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowInsetSize="16dp"
+                app:shape_shadowOffsetY="24dp"
+                app:shape_shadowSize="16dp"
+                app:shape_solidColor="@android:color/white"
+                app:shape_strokeColor="#FFFF9800"
+                app:shape_strokeSize="2dp" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_xml_software_layer"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:layerType="software"
+                android:padding="12dp"
+                android:text="E. XML SOFTWARE：应恢复 NONE，再按 Canvas 能力绘制"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowInsetSize="16dp"
+                app:shape_shadowOffsetY="4dp"
+                app:shape_shadowSize="16dp"
+                app:shape_solidColor="@android:color/white"
+                app:shape_strokeColor="#FF4CAF50"
+                app:shape_strokeDashGap="5dp"
+                app:shape_strokeDashSize="10dp"
+                app:shape_strokeSize="2dp" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_host_hardware_layer"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="F. 宿主 HARDWARE：重建背景后仍应保留硬件层"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowInsetSize="16dp"
+                app:shape_shadowOffsetY="4dp"
+                app:shape_shadowSize="16dp"
+                app:shape_solidColor="@android:color/white"
+                app:shape_strokeColor="#FF9C27B0"
+                app:shape_strokeSize="2dp" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="G. 填充渐变 + 实线：低版本降级时仍应保留"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowInsetSize="16dp"
+                app:shape_shadowOffsetY="4dp"
+                app:shape_shadowSize="16dp"
+                app:shape_solidGradientEndColor="#FF5A8DDF"
+                app:shape_solidGradientStartColor="#FF9C27B0"
+                app:shape_strokeColor="@android:color/white"
+                app:shape_strokeSize="2dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="超大卡片与 RecyclerView 嵌套压力测试"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.hjq.shape.view.ShapeButton
+                android:id="@+id/btn_reapply_shadow_software_layer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="模拟宿主重新设置 SOFTWARE"
+                app:shape_radius="8dp"
+                app:shape_solidColor="#FF607D8B" />
+
+            <com.hjq.shape.view.ShapeButton
+                android:id="@+id/btn_toggle_shadow_large_hardware"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="扩展直接大卡片到 10000dp"
+                app:shape_radius="8dp"
+                app:shape_solidColor="#FF5A8DDF" />
+
+            <com.hjq.shape.view.ShapeButton
+                android:id="@+id/btn_toggle_shadow_recycler_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="展开 RecyclerView 内卡片到 10000dp"
+                app:shape_radius="8dp"
+                app:shape_solidColor="#FF009688" />
+
+            <com.hjq.shape.view.ShapeButton
+                android:id="@+id/btn_open_software_canvas_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="打开软件 Canvas 验证页"
+                app:shape_radius="8dp"
+                app:shape_solidColor="#FF9C27B0" />
+
+            <TextView
+                android:id="@+id/tv_shadow_stress_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="压力测试待命：可分别展开直接大卡片或 RecyclerView 内的大卡片。"
+                android:textColor="#FF666666"
+                android:textSize="12sp" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tv_shadow_large_hardware_card"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="直接大卡片（120dp）：点击上方按钮扩展到 10000dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:shape_radius="14dp"
+                app:shape_shadowColor="#66FF0000"
+                app:shape_shadowHardware="true"
+                app:shape_shadowInsetSize="16dp"
+                app:shape_shadowOffsetY="4dp"
+                app:shape_shadowSize="16dp"
+                app:shape_solidColor="@android:color/white"
+                app:shape_strokeColor="#FF009688"
+                app:shape_strokeDashGap="5dp"
+                app:shape_strokeDashSize="10dp"
+                app:shape_strokeSize="2dp" />
+
+            <com.hjq.shape.layout.ShapeRecyclerView
+                android:id="@+id/rv_shadow_large_card"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:layout_margin="10dp"
+                android:nestedScrollingEnabled="true"
+                android:overScrollMode="never" />
 
         </com.hjq.shape.layout.ShapeLinearLayout>
 

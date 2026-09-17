@@ -67,6 +67,33 @@ android.enableJetifier = true
 
 #### 框架文档
 
+#### 硬件阴影方案（API 28+）
+
+开启 `shape_shadowHardware` 后，库不会主动创建软件图层；API < 28 的硬件 Canvas 会保留阴影留白，
+但跳过平台不支持的非文本阴影与虚线。显式配置 `android:layerType="software"` 时，库只会解除该软件层，
+不会覆盖宿主主动创建的 `LAYER_TYPE_HARDWARE`。
+
+阴影半径采用混合映射：**无偏移时 `shape_shadowSize` 直传全量，所见即所得（4dp 配置即 4dp 模糊）**；
+配置任意偏移后，半径按旧方案分档取 `shadowSize / 2`（API 28+）或 `shadowSize / 3`（API < 28 的软件
+Canvas），与旧方案观感一致；但带偏移时的四侧留白固定按 `shadowSize / 2` 计算，保证 API 降级前后
+卡片内容区域不变化。从旧模式迁移且需保持无偏移阴影旧观感时，请将 `shape_shadowSize` 减半。
+
+```xml
+<com.hjq.shape.view.ShapeTextView
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:gravity="center"
+    app:shape_radius="12dp"
+    app:shape_shadowHardware="true"
+    app:shape_shadowSize="14dp"
+    app:shape_shadowInsetSize="14dp"
+    app:shape_shadowColor="#66FF0000"
+    app:shape_shadowOffsetY="4dp"
+    app:shape_strokeSize="2dp"
+    app:shape_strokeDashSize="10dp"
+    app:shape_strokeDashGap="5dp" />
+```
+
 * Java 代码设置
 
 ```java
@@ -265,8 +292,12 @@ shapeButton.setOnClickListener(new View.OnClickListener() {
     <!-- 边框虚线间隔（虚线与虚线之间的间隔） -->
     <attr name="shape_strokeDashGap" format="dimension" />
 
-    <!-- 阴影大小 -->
+    <!-- 阴影大小；shadowHardware 开启时无偏移即所见即所得（4dp = 4dp 模糊），有偏移按 1/2（API 28+）或 1/3（API < 28）映射 -->
     <attr name="shape_shadowSize" format="dimension" />
+    <!-- 是否按最终 Canvas 能力绘制阴影；开启后库不主动创建软件图层 -->
+    <attr name="shape_shadowHardware" format="boolean" />
+    <!-- 仅保留阴影留白，不触发阴影绘制 -->
+    <attr name="shape_shadowInsetSize" format="dimension" />
     <!-- 阴影颜色 -->
     <attr name="shape_shadowColor" format="color" />
     <!-- 阴影水平偏移 -->

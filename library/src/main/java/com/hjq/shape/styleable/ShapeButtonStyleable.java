@@ -242,6 +242,16 @@ public final class ShapeButtonStyleable implements IShapeDrawableStyleable, ITex
     }
 
     @Override
+    public int getShadowHardwareStyleable() {
+        return R.styleable.ShapeButton_shape_shadowHardware;
+    }
+
+    @Override
+    public int getShadowInsetSizeStyleable() {
+        return R.styleable.ShapeButton_shape_shadowInsetSize;
+    }
+
+    @Override
     public int getShadowColorStyleable() {
         return R.styleable.ShapeButton_shape_shadowColor;
     }

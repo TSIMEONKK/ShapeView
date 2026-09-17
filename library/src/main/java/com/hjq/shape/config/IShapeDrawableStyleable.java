@@ -118,6 +118,16 @@ public interface IShapeDrawableStyleable {
 
     int getShadowSizeStyleable();
 
+    /** 硬件阴影开关；返回 -1 表示当前 Styleable 未声明该属性。 */
+    default int getShadowHardwareStyleable() {
+        return -1;
+    }
+
+    /** 阴影纯占位大小；返回 -1 表示当前 Styleable 未声明该属性。 */
+    default int getShadowInsetSizeStyleable() {
+        return -1;
+    }
+
     int getShadowColorStyleable();
 
     int getShadowOffsetXStyleable();

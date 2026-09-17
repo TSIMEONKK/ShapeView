@@ -241,6 +241,16 @@ public final class ShapeImageViewStyleable implements IShapeDrawableStyleable {
     }
 
     @Override
+    public int getShadowHardwareStyleable() {
+        return R.styleable.ShapeImageView_shape_shadowHardware;
+    }
+
+    @Override
+    public int getShadowInsetSizeStyleable() {
+        return R.styleable.ShapeImageView_shape_shadowInsetSize;
+    }
+
+    @Override
     public int getShadowColorStyleable() {
         return R.styleable.ShapeImageView_shape_shadowColor;
     }

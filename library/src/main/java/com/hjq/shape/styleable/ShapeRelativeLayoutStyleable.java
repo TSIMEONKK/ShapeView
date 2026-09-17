@@ -241,6 +241,16 @@ public final class ShapeRelativeLayoutStyleable implements IShapeDrawableStyleab
     }
 
     @Override
+    public int getShadowHardwareStyleable() {
+        return R.styleable.ShapeRelativeLayout_shape_shadowHardware;
+    }
+
+    @Override
+    public int getShadowInsetSizeStyleable() {
+        return R.styleable.ShapeRelativeLayout_shape_shadowInsetSize;
+    }
+
+    @Override
     public int getShadowColorStyleable() {
         return R.styleable.ShapeRelativeLayout_shape_shadowColor;
     }
